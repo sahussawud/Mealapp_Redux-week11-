@@ -1,21 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet } from "react-native";
 
+import MealsNavigator from './navigation/MealsNavigator';
+import { createStore, combineReducers } from 'redux';
+import { Provider} from "react-redux";
+import mealsReducer from './store/reducers/mealReducer'
 export default function App() {
+  // เพิ่มโค้ดส่วนนี้
+  const rootReducer = combineReducers({
+    meals: mealsReducer
+  })
+  const store = createStore(rootReducer);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <Provider store={store}>
+      <MealsNavigator/>
+    </Provider>);
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "blue",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
